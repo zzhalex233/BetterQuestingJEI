@@ -1,0 +1,15 @@
+[{
+	"modid": "bqjei",
+	"name": "Better Questing JEI",
+	"version": "1.0.0",
+	"mcversion": "1.12.2",
+	"description": "JEI integration for Better Questing with quest ingredient and reward display.",
+	"authorList": ["zzhalex233"],
+	"credits": "{{ mod_credits }}",
+	"url": "https://github.com/zzhalex233/BetterQuestingJEI",
+	"updateJSON": "{{ mod_update_json }}",
+	"logoFile": "{{ mod_logo_path }}",
+	"modProperties": {
+		"issueTrackerUrl": "{{ mod_issue_tracker }}"
+	}
+}]
