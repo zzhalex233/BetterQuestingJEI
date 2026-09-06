@@ -1,7 +1,9 @@
 package com.zzhalex233.bqjei;
 
 import com.zzhalex233.bqjei.config.BQJEIConfig;
+import com.zzhalex233.bqjei.item.ItemCheckbox;
 import com.zzhalex233.bqjei.proxy.IProxy;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -17,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 )
 public class BetterQuestingJEI {
     public static final Logger LOGGER = LogManager.getLogger(Reference.MOD_NAME);
+    public static final Item CHECKBOX = new ItemCheckbox();
 
     @Mod.Instance(Reference.MOD_ID)
     public static BetterQuestingJEI instance;

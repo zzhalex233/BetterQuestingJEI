@@ -10,8 +10,10 @@ import betterquesting.api2.utils.QuestTranslation;
 import betterquesting.client.gui2.GuiQuest;
 import betterquesting.questing.rewards.RewardChoice;
 import betterquesting.questing.rewards.RewardItem;
+import betterquesting.questing.tasks.TaskCheckbox;
 import betterquesting.questing.tasks.TaskCrafting;
 import betterquesting.questing.tasks.TaskRetrieval;
+import com.zzhalex233.bqjei.BetterQuestingJEI;
 import mezz.jei.api.gui.ITooltipCallback;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
@@ -59,6 +61,8 @@ public class QuestWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack>
                 addRetrievalInputs(inputs, (TaskRetrieval) task);
             } else if (task instanceof TaskCrafting) {
                 addCraftingInputs(inputs, (TaskCrafting) task);
+            } else if (task instanceof TaskCheckbox) {
+                addCheckboxInput(inputs, (TaskCheckbox) task);
             }
         }
 
@@ -196,6 +200,22 @@ public class QuestWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack>
         for (BigItemStack stack : task.requiredItems) {
             addBigStack(inputs, stack, "bqjei.task.crafting", notes);
         }
+    }
+
+    private static void addCheckboxInput(List<SlotData> inputs, TaskCheckbox task) {
+        List<String> notes = new ArrayList<>();
+
+        if (task.optional) {
+            notes.add("bqjei.optional");
+        }
+
+        inputs.add(new SlotData(
+                Collections.singletonList(new ItemStack(BetterQuestingJEI.CHECKBOX)),
+                "bqjei.task.checkbox",
+                1,
+                "",
+                notes
+        ));
     }
 
     private static void addItemRewards(List<SlotData> outputs, RewardItem reward) {
