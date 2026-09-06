@@ -33,7 +33,7 @@ public final class BQJEIConfig {
         showHiddenQuestInfo = config.getBoolean(
                 "showHiddenQuestInfo",
                 CATEGORY_BQJEI,
-                true,
+                false,
                 "Show synced Better Questing quests in JEI even when their prerequisites are not completed or their BQ visibility would normally hide them.",
                 "bqjei.config.show_hidden_quest_info"
         );

@@ -32,17 +32,17 @@ public class QuestWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack>
     public final int questId;
     public final IQuest quest;
     public final String name;
-    public final boolean shown;
+    public final boolean hidden;
     public final List<List<ItemStack>> input;
     public final List<List<ItemStack>> output;
 
     private final List<SlotData> inputInfo;
     private final List<SlotData> outputInfo;
 
-    private QuestWrapper(int questId, IQuest quest, boolean shown, List<SlotData> inputs, List<SlotData> outputs) {
+    private QuestWrapper(int questId, IQuest quest, boolean hidden, List<SlotData> inputs, List<SlotData> outputs) {
         this.questId = questId;
         this.quest = quest;
-        this.shown = shown;
+        this.hidden = hidden;
         this.name = QuestTranslation.translate(quest.getProperty(NativeProps.NAME));
         this.inputInfo = prepareSlots(inputs);
         this.outputInfo = prepareSlots(outputs);
@@ -50,7 +50,7 @@ public class QuestWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack>
         this.output = toIngredientLists(outputInfo);
     }
 
-    public static QuestWrapper create(int questId, IQuest quest, boolean shown) {
+    public static QuestWrapper create(int questId, IQuest quest, boolean hidden) {
         List<SlotData> inputs = new ArrayList<>();
         List<SlotData> outputs = new ArrayList<>();
 
@@ -80,7 +80,7 @@ public class QuestWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack>
             return null;
         }
 
-        return new QuestWrapper(questId, quest, shown, inputs, outputs);
+        return new QuestWrapper(questId, quest, hidden, inputs, outputs);
     }
 
     public int getInputSlotCount() {
@@ -105,7 +105,7 @@ public class QuestWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack>
         int x = (recipeWidth - width) / 2;
         int y = 3;
         boolean hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + font.FONT_HEIGHT;
-        int color = hovered ? 0xFFA87A5E : (shown ? 0xFF3F2E23 : 0xFF6B4F7A);
+        int color = hovered ? 0xFFA87A5E : (hidden ? 0xFF6B4F7A : 0xFF3F2E23);
 
         font.drawString(TextFormatting.UNDERLINE + title, x, y, color);
     }
@@ -121,7 +121,7 @@ public class QuestWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack>
         tooltip.add(TextFormatting.GRAY + I18n.format("bqjei.open_quest"));
         tooltip.add(TextFormatting.DARK_GRAY + I18n.format("bqjei.quest_id", questId));
 
-        if (!shown) {
+        if (hidden) {
             tooltip.add(TextFormatting.DARK_PURPLE + I18n.format("bqjei.hidden_quest"));
         }
 
@@ -156,7 +156,7 @@ public class QuestWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack>
             tooltip.add(TextFormatting.DARK_GRAY + I18n.format(key));
         }
 
-        if (!shown) {
+        if (hidden) {
             tooltip.add(TextFormatting.DARK_PURPLE + I18n.format("bqjei.hidden_quest"));
         }
     }
